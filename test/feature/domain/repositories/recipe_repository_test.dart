@@ -43,7 +43,7 @@ void main() {
         when(mockRecipeRepository.getRecipe(any))
             .thenAnswer((_) async => const Right(tRecipe));
 
-        final result = await usecase.execute(ingredients: tIngredients);
+        final result = await usecase(Params(ingredients: tIngredients));
 
         expect(result, const Right(tRecipe));
         verify(mockRecipeRepository.getRecipe(tIngredients));
