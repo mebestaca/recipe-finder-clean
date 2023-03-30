@@ -1,19 +1,31 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
+import 'package:recipe_finder_clean/core/usecases/usecase.dart';
 import 'package:recipe_finder_clean/feature/domain/repositories/recipe_repository.dart';
 
 import '../../../core/error/failure.dart';
 import '../entities/recipe.dart';
 
-class GetRecipe{
+class GetRecipe extends UseCase<Recipe, Params>{
   RecipeRepository repository;
 
   GetRecipe(this.repository);
 
-  Future<Either<Failure, Recipe>> execute({
-    required List<String> ingredients
-  })
+  @override
+  Future<Either<Failure, Recipe>> call(
+    Params params
+  )
   async {
-    return await repository.getRecipe(ingredients);
+    return await repository.getRecipe(params.ingredients);
   }
+}
+
+class Params extends Equatable {
+  final List<String> ingredients;
+
+  const Params({required this.ingredients});
+
+  @override
+  List<Object?> get props => [ingredients];
 
 }
