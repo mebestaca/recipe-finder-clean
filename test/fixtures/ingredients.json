@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "amount": 1.0,
+  "unit": "cup",
+  "unitLong": "cup",
+  "unitShort": "cup",
+  "aisle": "Pasta and Rice",
+  "name": "salt",
+  "original": "cup",
+  "originalName": "cup",
+  "meta": [
+    "fresh"
+  ],
+  "extendedName": "fresh bread crumbs",
+  "image": "test.url.com"
+}
