@@ -41,11 +41,11 @@ void main() {
           ()
       async {
         when(mockRecipeRepository.getRecipe(any))
-            .thenAnswer((_) async => const Right(tRecipe));
+            .thenAnswer((_) async => const Right([tRecipe]));
 
         final result = await usecase(Params(ingredients: tIngredients));
 
-        expect(result, const Right(tRecipe));
+        expect(result, const Right([tRecipe]));
         verify(mockRecipeRepository.getRecipe(tIngredients));
         verifyNoMoreInteractions(mockRecipeRepository);
 
