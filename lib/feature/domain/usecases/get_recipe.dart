@@ -6,13 +6,13 @@ import 'package:recipe_finder_clean/feature/domain/repositories/recipe_repositor
 import '../../../core/error/failure.dart';
 import '../entities/recipe.dart';
 
-class GetRecipe extends UseCase<Recipe, Params>{
+class GetRecipe extends UseCase<List<Recipe>, Params>{
   RecipeRepository repository;
 
   GetRecipe(this.repository);
 
   @override
-  Future<Either<Failure, Recipe>> call(
+  Future<Either<Failure, List<Recipe>>> call(
     Params params
   )
   async {
