@@ -21,6 +21,7 @@ class RecipeRepositoryImpl extends RecipeRepository{
 
   @override
   Future<Either<Failure, List<Recipe>>> getRecipe(List<String> ingredients) async {
+    networkInfo.isConnected;
     return const Right(
        [Recipe(imageUrl: "", ingredients: [], title: "")]
     );
