@@ -1,8 +1,5 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../core/error/failure.dart';
-import '../../domain/entities/recipe.dart';
+import '../models/recipe_model.dart';
 
 abstract class RecipeRemoteDataSource{
-  Future<Either<Failure, List<Recipe>>> getRecipe(List<String> ingredients);
+  Future<List<RecipeModel>> getRecipe(List<String> ingredients);
 }
