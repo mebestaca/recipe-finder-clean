@@ -51,53 +51,52 @@ void main() {
 
         List<Recipe> tRecipe = tRecipeModel;
 
-        test(
-          "should check if the device is online",
-              () {
-            when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-            repository.getRecipe(ingredients);
-            verify(mockNetworkInfo.isConnected);
-          }
-        );
-
         group("device is online",
-          () {
-            setUp(() {
-              when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-            });
+            () {
+              setUp(() {
+                when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+              });
 
-            test("should return remote data when the call to remote data source is successful",
-              () async {
-                when(mockRecipeRemoteDataSource.getRecipe(ingredients))
-                    .thenAnswer((_) async => tRecipeModel);
-                final result = await repository.getRecipe(ingredients);
-                verify(mockRecipeRemoteDataSource.getRecipe(ingredients));
-                expect(result, equals(Right(tRecipe)));
-              }
-            );
+              test("should return server failure when the call to the remote data source is unsuccessful",
+                      () async {
+                    when(mockRecipeRemoteDataSource.getRecipe(ingredients))
+                        .thenThrow(ServerException());
+                    final result = await repository.getRecipe(ingredients);
+                    verify(mockRecipeRemoteDataSource.getRecipe(ingredients));
+                    verifyNoMoreInteractions(mockRecipeLocalDataSource);
+                    expect(result, equals(Left(ServerFailure())));
+                  }
+              );
 
-            test("should cache the data locally when the call to remote data source is successful",
-              () async {
-                when(mockRecipeRemoteDataSource.getRecipe(ingredients))
-                    .thenAnswer((_) async => tRecipeModel);
-                await repository.getRecipe(ingredients);
-                verify(mockRecipeRemoteDataSource.getRecipe(ingredients));
-                verify(mockRecipeLocalDataSource.cacheRecipeList(tRecipeModel));
-              }
-            );
-            /*
-            test("should return server failure when the call to the remote data source is unsuccessful",
-              () async {
-                when(mockRecipeRemoteDataSource.getRecipe(ingredients))
-                    .thenThrow(ServerException());
-                final result = await repository.getRecipe(ingredients);
-                verify(mockRecipeRemoteDataSource.getRecipe(ingredients));
-                verifyZeroInteractions(mockRecipeLocalDataSource);
-                expect(result, equals(Left(ServerFailure())));
-              }
-            );
-            */
-          }
+              test(
+                  "should check if the device is online",
+                      () {
+                    when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+                    repository.getRecipe(ingredients);
+                    verify(mockNetworkInfo.isConnected);
+                  }
+              );
+
+              test("should return remote data when the call to remote data source is successful",
+                      () async {
+                    when(mockRecipeRemoteDataSource.getRecipe(ingredients))
+                        .thenAnswer((_) async => tRecipeModel);
+                    final result = await repository.getRecipe(ingredients);
+                    verify(mockRecipeRemoteDataSource.getRecipe(ingredients));
+                    expect(result, equals(Right(tRecipe)));
+                  }
+              );
+
+              test("should cache the data locally when the call to remote data source is successful",
+                      () async {
+                    when(mockRecipeRemoteDataSource.getRecipe(ingredients))
+                        .thenAnswer((_) async => tRecipeModel);
+                    await repository.getRecipe(ingredients);
+                    verify(mockRecipeRemoteDataSource.getRecipe(ingredients));
+                    verify(mockRecipeLocalDataSource.cacheRecipeList(tRecipeModel));
+                  }
+              );
+            }
         );
       }
   );
