@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -8,6 +7,7 @@ import 'package:recipe_finder_clean/feature/data/datasources/recipe_remote_data_
 import 'package:recipe_finder_clean/feature/data/models/recipe_model.dart';
 import 'package:recipe_finder_clean/feature/data/repositories/recipe_repository_impl.dart';
 import 'package:recipe_finder_clean/feature/domain/entities/ingredients.dart';
+import 'package:recipe_finder_clean/feature/domain/entities/recipe.dart';
 
 import 'recipe_repository_impl_test.mocks.dart';
 
@@ -27,8 +27,6 @@ void main() {
   mockRecipeLocalDataSource = MockRecipeLocalDataSource();
   mockNetworkInfo = MockNetworkInfo();
 
-
-  
   repository = RecipeRepositoryImpl(
       localDataSource: mockRecipeLocalDataSource,
       remoteDataSource: mockRecipeRemoteDataSource,
@@ -39,14 +37,16 @@ void main() {
     "getRecipe",
       () {
         List<String> ingredients = ["salt", "pepper"];
-        const tRecipeModel = RecipeModel(
+        const List<RecipeModel> tRecipeModel = [RecipeModel(
             title: "test'",
             imageUrl: "test url",
             ingredients: [Ingredients(
                 name: "test name",
                 amount: 1,
                 unitOfMeasure: "cup",
-                imageUrl: "image url")]);
+                imageUrl: "image url")])];
+
+        List<Recipe> tRecipe = tRecipeModel;
 
         test(
           "should check if the device is online",
@@ -62,13 +62,25 @@ void main() {
               setUp(() {
                 when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
               });
+
               test("should return remote data when the call to remote data source is successful",
                       () async {
                     when(mockRecipeRemoteDataSource.getRecipe(ingredients))
-                        .thenAnswer((_) async => const Right([tRecipeModel]));
+                        .thenAnswer((_) async => tRecipeModel);
                     final result = await repository.getRecipe(ingredients);
+                    final resultFold = result.fold((l) => null, (r) => r);
                     verify(mockRecipeRemoteDataSource.getRecipe(ingredients));
-                    expect(result, equals(const Right([tRecipeModel])));
+                    expect(resultFold, equals(tRecipe));
+                  }
+              );
+
+              test("should cache the data locally when the call to remote data source is successful",
+                  () async {
+                    when(mockRecipeRemoteDataSource.getRecipe(ingredients))
+                        .thenAnswer((_) async => tRecipeModel);
+                    await repository.getRecipe(ingredients);
+                    verify(mockRecipeRemoteDataSource.getRecipe(ingredients));
+                    verify(mockRecipeLocalDataSource.cacheRecipeList(tRecipeModel));
                   }
               );
             }
