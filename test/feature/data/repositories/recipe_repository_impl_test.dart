@@ -37,6 +37,30 @@ void main() {
     );
   });
 
+  void runTestOnline(Function body) {
+    group("device is online",
+      () {
+        setUp(() {
+          when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+        });
+
+        body();
+      }
+    );
+  }
+
+  void runTestOffline(Function body) {
+    group("device is offline",
+            () {
+          setUp(() {
+            when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+          });
+
+          body();
+        }
+    );
+  }
+
   group(
     "getRecipe",
     () {
@@ -52,12 +76,8 @@ void main() {
 
       List<Recipe> tRecipe = tRecipeModel;
 
-      group("device is online",
+      runTestOnline(
         () {
-          setUp(() {
-            when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-          });
-
           test("should return server failure when the call to the remote data source is unsuccessful",
                   () async {
                 when(mockRecipeRemoteDataSource.getRecipe(ingredients))
@@ -100,12 +120,8 @@ void main() {
         }
       );
 
-      group("device is offline",
+      runTestOffline(
         () {
-          setUp(() {
-            when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-          });
-
           test("should return last locally cached data when the cached data is present",
               () async {
                   when(mockRecipeLocalDataSource.getLastRecipeList())
@@ -117,6 +133,17 @@ void main() {
                   verify(mockRecipeLocalDataSource.getLastRecipeList());
                   expect(result, equals(const Right(tRecipeModel)));
               }
+          );
+
+          test("should return CacheFailure when there is no cached data present",
+            () async {
+              when(mockRecipeLocalDataSource.getLastRecipeList())
+                  .thenThrow(CacheException());
+              final result = await repository.getRecipe(ingredients);
+              verifyZeroInteractions(mockRecipeRemoteDataSource);
+              verify(mockRecipeLocalDataSource.getLastRecipeList());
+              expect(result, equals(Left(CacheFailure())));
+            }
           );
         }
       );
