@@ -33,8 +33,13 @@ class RecipeRepositoryImpl extends RecipeRepository{
       }
     }
     else {
-      final recipeList = await localDataSource.getLastRecipeList();
-      return Right(recipeList);
+      try {
+        final recipeList = await localDataSource.getLastRecipeList();
+        return Right(recipeList);
+      }
+      on CacheException{
+        return Left(CacheFailure());
+      }
     }
   }
 }
