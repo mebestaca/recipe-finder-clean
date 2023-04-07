@@ -22,14 +22,19 @@ class RecipeRepositoryImpl extends RecipeRepository{
 
   @override
   Future<Either<Failure, List<Recipe>>> getRecipe(List<String> ingredients) async {
-    networkInfo.isConnected;
-    try{
-      final recipeList = await remoteDataSource.getRecipe(ingredients);
-      localDataSource.cacheRecipeList(recipeList);
-      return Right(recipeList);
+    if (await networkInfo.isConnected) {
+      try{
+        final recipeList = await remoteDataSource.getRecipe(ingredients);
+        localDataSource.cacheRecipeList(recipeList);
+        return Right(recipeList);
+      }
+      on ServerException{
+        return Left(ServerFailure());
+      }
     }
-    on ServerException{
-      return Left(ServerFailure());
+    else {
+      final recipeList = await localDataSource.getLastRecipeList();
+      return Right(recipeList);
     }
   }
 }
