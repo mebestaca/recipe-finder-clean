@@ -17,4 +17,11 @@ class IngredientsModel extends Ingredients{
     );
   }
 
+  Map<String, dynamic> toJson() => {
+    "name" : name,
+    "amount" : amount,
+    "originalName" : unitOfMeasure,
+    "image" : imageUrl
+  };
+
 }
