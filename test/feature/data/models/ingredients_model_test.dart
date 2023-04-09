@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:recipe_finder_clean/feature/data/models/ingredients_model.dart';
 import 'package:recipe_finder_clean/feature/domain/entities/ingredients.dart';
@@ -32,5 +31,30 @@ void main(){
       expect(result, tIngredients);
     });
   });
+
+  group('toJson',
+    () {
+      test("should return a Json containing the proper data", () {
+        const tIngredientsModel = IngredientsModel(
+          name: "test",
+          amount: 1.0,
+          unitOfMeasure: "cup",
+          imageUrl: "testUrl"
+        );
+
+        final result = tIngredientsModel.toJson();
+
+        final expectedJsonMap = {
+          "name" : "test",
+          "amount" : 1.0,
+          "originalName" : "cup",
+          "image" : "testUrl"
+        };
+
+        expect(result, expectedJsonMap);
+
+      });
+    }
+  );
 
 }
