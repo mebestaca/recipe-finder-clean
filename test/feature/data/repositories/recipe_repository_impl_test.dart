@@ -7,9 +7,9 @@ import 'package:recipe_finder_clean/core/error/failure.dart';
 import 'package:recipe_finder_clean/core/network/network_info.dart';
 import 'package:recipe_finder_clean/feature/data/datasources/recipe_local_data_source.dart';
 import 'package:recipe_finder_clean/feature/data/datasources/recipe_remote_data_source.dart';
+import 'package:recipe_finder_clean/feature/data/models/ingredients_model.dart';
 import 'package:recipe_finder_clean/feature/data/models/recipe_model.dart';
 import 'package:recipe_finder_clean/feature/data/repositories/recipe_repository_impl.dart';
-import 'package:recipe_finder_clean/feature/domain/entities/ingredients.dart';
 import 'package:recipe_finder_clean/feature/domain/entities/recipe.dart';
 
 import 'recipe_repository_impl_test.mocks.dart';
@@ -68,7 +68,7 @@ void main() {
       const List<RecipeModel> tRecipeModel = [RecipeModel(
           title: "test'",
           imageUrl: "test url",
-          ingredients: [Ingredients(
+          ingredients: [IngredientsModel(
               name: "test name",
               amount: 1,
               unitOfMeasure: "cup",
