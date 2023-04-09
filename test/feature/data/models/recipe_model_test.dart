@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:recipe_finder_clean/feature/data/models/ingredients_model.dart';
 import 'package:recipe_finder_clean/feature/data/models/recipe_model.dart';
-import 'package:recipe_finder_clean/feature/domain/entities/ingredients.dart';
 import 'package:recipe_finder_clean/feature/domain/entities/recipe.dart';
 
 import '../../../fixtures/fixture_reader.dart';
@@ -14,7 +13,7 @@ void main() {
   const tRecipeModel = RecipeModel(
     title: "test title",
     imageUrl: "image url",
-    ingredients: <Ingredients> [
+    ingredients: [
       IngredientsModel(
           name: "salt",
           amount: 1.0,
@@ -40,4 +39,54 @@ void main() {
     });
   });
 
+
+  group('toJson',
+      () {
+        test("should return a json map containing proper data",
+            () async {
+              const tRecipeModel = RecipeModel(
+                title: "test title",
+                imageUrl: "image url",
+                ingredients: [
+                  IngredientsModel(
+                      name: "ingredient1",
+                      amount: 1,
+                      unitOfMeasure: "cup",
+                      imageUrl: "url 1"
+                  ),
+                  IngredientsModel(
+                      name: "ingredient2",
+                      amount: 2,
+                      unitOfMeasure: "cup",
+                      imageUrl: "url 2"
+                  ),
+                ]
+              );
+              final result = tRecipeModel.toJson();
+
+              final expectedJsonMap = {
+                "title" : "test title",
+                "image" : "image url",
+                "missedIngredients" : [
+                  {
+                    "name": "ingredient1",
+                    "amount": 1,
+                    "originalName": "cup",
+                    "image": "url 1"
+                  },
+                  {
+                    "name": "ingredient2",
+                    "amount": 2,
+                    "originalName": "cup",
+                    "image": "url 2"
+                  },
+                ]
+              };
+
+              expect(result, expectedJsonMap);
+
+            }
+        );
+      }
+  );
 }
