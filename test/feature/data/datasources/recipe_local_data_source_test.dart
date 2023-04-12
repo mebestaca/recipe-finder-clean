@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:flutter_test/flutter_test.dart";
 import "package:mockito/annotations.dart";
 import "package:mockito/mockito.dart";
+import "package:recipe_finder_clean/core/error/exception.dart";
 import "package:recipe_finder_clean/feature/data/datasources/recipe_local_data_source.dart";
 import "package:recipe_finder_clean/feature/data/models/recipe_model.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -35,6 +36,13 @@ void main() {
       expect(result, equals(tRecipeListModel));
 
     });
+
+    test("should throw a CacheException when there is not a cache value", () async {
+      when(mockSharedPreferences.getString(any)).thenReturn(null);
+      final call = dataSource.getLastRecipeList;
+      expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
+    });
+
   });
 
 }
