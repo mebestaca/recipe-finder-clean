@@ -37,7 +37,11 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource{
 
   @override
   Future<void> cacheRecipeList(List<RecipeModel> recipeList) async {
-
+    List<Map<String, dynamic>> dataList = recipeList.map((e) => e.toJson()).toList();
+    final String expectedJsonString = jsonEncode(dataList);
+    sharedPreferences.setString(
+      cachedRecipeListKey,
+        expectedJsonString
+    );
   }
-
 }
