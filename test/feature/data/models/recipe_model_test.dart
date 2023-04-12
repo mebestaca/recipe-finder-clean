@@ -31,10 +31,9 @@ void main() {
   group('fromJson',
   () {
     test('should return a valid model', () async {
-      final Map<String, dynamic> jsonMap = json.decode(fixture('recipe.json'));
-
+      final List dataList = jsonDecode(fixture('recipe.json'));
+      final Map<String, dynamic> jsonMap = jsonDecode(jsonEncode(dataList[0]));
       final result = RecipeModel.fromJson(jsonMap);
-
       expect(result, tRecipeModel);
     });
   });
