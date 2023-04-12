@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:recipe_finder_clean/core/error/exception.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/recipe_model.dart';
@@ -18,20 +19,25 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource{
   RecipeLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<void> cacheRecipeList(List<RecipeModel> recipeList) async {
+  Future<List<RecipeModel>> getLastRecipeList() async {
+    final jsonString = sharedPreferences.getString(cachedRecipeListKey);
+    if (jsonString != null) {
+      final List dataList = jsonDecode(jsonString);
 
+      return Future.value(
+          List<RecipeModel>.from(dataList.map((e) {
+            return RecipeModel.fromJson(e);
+          }))
+      );
+    }
+    else {
+      throw CacheException();
+    }
   }
 
   @override
-  Future<List<RecipeModel>> getLastRecipeList() async {
-    final jsonString = sharedPreferences.getString(cachedRecipeListKey);
-    final List dataList = jsonDecode(jsonString!);
+  Future<void> cacheRecipeList(List<RecipeModel> recipeList) async {
 
-    return Future.value(
-      List<RecipeModel>.from(dataList.map((e) {
-        return RecipeModel.fromJson(e);
-      }))
-    );
   }
 
 }
