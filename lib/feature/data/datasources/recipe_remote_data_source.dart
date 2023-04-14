@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:recipe_finder_clean/core/error/exception.dart';
+
 import '../../../keys/keys.dart';
 import '../models/recipe_model.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +13,6 @@ abstract class RecipeRemoteDataSource{
 class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource{
 
   final http.Client client;
-
   const RecipeRemoteDataSourceImpl({required this.client});
 
   @override
@@ -21,6 +24,18 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource{
     };
     final uri = Uri.http('api.spoonacular.com', '/recipes/findByIngredients', data);
     final response = await client.get(uri, headers: {"Content-Type" : "application/json"});
-    return Future.value([]);
+
+    if (response.statusCode == 200) {
+      final List dataList = jsonDecode(response.body);
+      return Future.value(
+          List<RecipeModel>.from(dataList.map((e) {
+            return RecipeModel.fromJson(e);
+          }))
+      );
+    }
+    else {
+      throw ServerException();
+    }
+
   }
 }
