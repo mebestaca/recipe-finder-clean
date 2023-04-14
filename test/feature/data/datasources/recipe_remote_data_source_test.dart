@@ -16,6 +16,16 @@ void main() {
   late RecipeRemoteDataSourceImpl dataSource;
   late MockClient mockClient;
 
+  void setUpMockClientSuccess200() {
+    when(mockClient.get(any, headers: anyNamed("headers")))
+        .thenAnswer((_) async => http.Response(fixture("recipe.json"), 200));
+  }
+
+  void setUpMockClientFailure404() {
+    when(mockClient.get(any, headers: anyNamed("headers")))
+        .thenAnswer((_) async => http.Response("something went wrong", 404));
+  }
+
   setUp(() {
     mockClient = MockClient();
     dataSource = RecipeRemoteDataSourceImpl(client: mockClient);
@@ -31,14 +41,12 @@ void main() {
     };
 
     test("should perform a GET request on a URL with with a list being the endpoint and with application/json header", () {
-      when(mockClient.get(any, headers: anyNamed("headers")))
-        .thenAnswer((_) async => http.Response(fixture("recipe.json"), 200));
+      setUpMockClientSuccess200();
       final uri = Uri.http('api.spoonacular.com', '/recipes/findByIngredients', data);
       dataSource.getRecipe(ingredients);
 
       verify(mockClient.get(uri, headers: {"Content-Type" : "application/json"}));
     });
-
 
     final List<RecipeModel> tRecipeList = [ const RecipeModel(
         title: "test title",
@@ -48,17 +56,15 @@ void main() {
             amount: 1.0,
             unitOfMeasure: "cup",
             imageUrl: "test.url.com")])];
+
     test("should return a list of recipe model when the response code is 200 (success)", () async {
-      when(mockClient.get(any, headers: anyNamed("headers")))
-        .thenAnswer((_) async => http.Response(fixture("recipe.json"), 200));
+      setUpMockClientSuccess200();
       final result = await dataSource.getRecipe(ingredients);
       expect(result, equals(tRecipeList));
     });
 
     test("should throw a ServerException when the response code   is 404 or other", () async {
-      when(mockClient.get(any, headers: anyNamed("headers")))
-        .thenAnswer((_) async => http.Response("something went wrong", 404));
-
+      setUpMockClientFailure404();
       final call = dataSource.getRecipe;
       expect(() => call(ingredients), throwsA(const TypeMatcher<ServerException>()));
     });
