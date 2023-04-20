@@ -5,6 +5,10 @@ abstract class RecipeListEvent extends Equatable {
 }
 
 class GetRecipeForRecipeList extends RecipeListEvent {
+  final List<String> ingredients;
+
+  const GetRecipeForRecipeList(this.ingredients);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [ingredients];
 }

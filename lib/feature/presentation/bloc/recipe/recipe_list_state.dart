@@ -4,17 +4,17 @@ abstract class RecipeListState extends Equatable {
   const RecipeListState();
 }
 
-class Empty extends RecipeListState {
+class EmptyRecipeList extends RecipeListState {
   @override
   List<Object> get props => [];
 }
 
-class Loading extends RecipeListState {
+class LoadingRecipeList extends RecipeListState {
   @override
   List<Object?> get props => [];
 }
 
-class Loaded extends RecipeListState {
+class LoadedRecipeList extends RecipeListState {
   @override
   List<Object?> get props => [];
 }
