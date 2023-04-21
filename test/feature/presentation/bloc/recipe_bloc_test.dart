@@ -47,6 +47,22 @@ void main() {
           verify(mockGetRecipe(Params(ingredients:  ingredients)));
         }
       );
+
+      test("should emit [Loading, Loaded] when data is fetched successfully",
+        () async* {
+          when(mockGetRecipe(any))
+            .thenAnswer((_) async => const Right(tRecipeModel));
+
+          final expected = [
+            EmptyRecipeList(),
+            LoadingRecipeList(),
+            LoadedRecipeList()
+          ];
+
+          expectLater(bloc, emitsInOrder(expected));
+          bloc.add(GetRecipeForRecipeList(ingredients));
+        }
+      );
     }
   );
 }
