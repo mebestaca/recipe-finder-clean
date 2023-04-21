@@ -11,9 +11,12 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
   final GetRecipe getRecipe;
 
   RecipeListBloc({required this.getRecipe}) : super(EmptyRecipeList()) {
-    on<RecipeListEvent>((event, emit) async {
+    on<RecipeListEvent>((event, emit) {
+
       if (event is GetRecipeForRecipeList) {
-        final failureOrRecipeList = await getRecipe(Params(ingredients: event.ingredients ));
+        emit(LoadingRecipeList());
+        final failureOrRecipeList = getRecipe(Params(ingredients: event.ingredients ));
+        emit(LoadedRecipeList());
       }
     });
   }
