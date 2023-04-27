@@ -2,10 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
+import 'package:recipe_finder_clean/core/error/failure.dart';
 import 'package:recipe_finder_clean/feature/data/models/ingredients_model.dart';
 import 'package:recipe_finder_clean/feature/data/models/recipe_model.dart';
 import 'package:recipe_finder_clean/feature/domain/usecases/get_recipe.dart';
 import 'package:recipe_finder_clean/feature/presentation/bloc/recipe/recipe_list_bloc.dart';
+import 'package:bloc_test/bloc_test.dart';
 
 import 'recipe_bloc_test.mocks.dart';
 
@@ -16,7 +18,6 @@ void main() {
 
   setUp(() {
     mockGetRecipe = MockGetRecipe();
-
     bloc = RecipeListBloc(getRecipe: mockGetRecipe);
   });
 
@@ -36,32 +37,47 @@ void main() {
               unitOfMeasure: "cup",
               imageUrl: "image url")])];
 
-      test("should get data from the getRecipeList usecase",
-        () async {
-          when(mockGetRecipe(any))
-              .thenAnswer((_) async => const Right(tRecipeModel));
-
-          bloc.add(GetRecipeForRecipeList(ingredients));
-          await untilCalled(mockGetRecipe(any));
-
+      blocTest("should get data from the getRecipeList usecase",
+        build: () => bloc,
+        setUp: () => when(mockGetRecipe(any))
+            .thenAnswer((_) async => const Right(tRecipeModel)),
+        act: (bloc) => bloc.add(GetRecipeForRecipeList(ingredients)),
+        verify: (_) async {
           verify(mockGetRecipe(Params(ingredients:  ingredients)));
         }
       );
 
-      test("should emit [Loading, Loaded] when data is fetched successfully",
-        () async* {
-          when(mockGetRecipe(any))
-            .thenAnswer((_) async => const Right(tRecipeModel));
+      blocTest("should emit [Loading, Loaded] when data is fetched successfully",
+        build: () => bloc,
+        setUp: () => when(mockGetRecipe(any))
+            .thenAnswer((_) async => const Right(tRecipeModel)),
+        act: (bloc) => bloc.add(GetRecipeForRecipeList(ingredients)),
+        expect: () => [
+          LoadingRecipeList(),
+          const LoadedRecipeList(tRecipeModel)
+        ]
+      );
 
-          final expected = [
-            EmptyRecipeList(),
-            LoadingRecipeList(),
-            LoadedRecipeList()
-          ];
+      blocTest("should emit [Loading, Error] when data is fetched unsuccessfully",
+        build: () => bloc,
+        setUp: () => when(mockGetRecipe(any))
+            .thenAnswer((_) async => Left(CacheFailure())),
+        act: (bloc) => bloc.add(GetRecipeForRecipeList(ingredients)),
+        expect: () => [
+          LoadingRecipeList(),
+          const ErrorRecipeList(message: CACHE_FAILURE_MESSAGE)
+        ]
+      );
 
-          expectLater(bloc, emitsInOrder(expected));
-          bloc.add(GetRecipeForRecipeList(ingredients));
-        }
+      blocTest("should emit [Loading, Error] with proper message for the error when getting data fails",
+        build: () => bloc,
+        setUp: () => when(mockGetRecipe(any))
+            .thenAnswer((_) async => Left(ServerFailure())),
+        act: (bloc) => bloc.add(GetRecipeForRecipeList(ingredients)),
+        expect: () => [
+          LoadingRecipeList(),
+          const ErrorRecipeList(message: SERVER_FAILURE_MESSAGE)
+        ]
       );
     }
   );
