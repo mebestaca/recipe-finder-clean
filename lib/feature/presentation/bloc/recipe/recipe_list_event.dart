@@ -12,3 +12,19 @@ class GetRecipeForRecipeList extends RecipeListEvent {
   @override
   List<Object?> get props => [ingredients];
 }
+
+class AddIngredientsToList extends RecipeListEvent {
+  final String ingredient;
+  const AddIngredientsToList(this.ingredient);
+
+  @override
+  List<Object?> get props => [ingredient];
+}
+
+class RemoveIngredientsFromList extends RecipeListEvent {
+  final String ingredient;
+  const RemoveIngredientsFromList(this.ingredient);
+
+  @override
+  List<Object?> get props => [ingredient];
+}

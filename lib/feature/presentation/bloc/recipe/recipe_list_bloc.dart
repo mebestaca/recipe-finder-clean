@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/error/failure.dart';
 import '../../../domain/entities/recipe.dart';
 import '../../../domain/usecases/get_recipe.dart';
+import '../../utils/ingredients_list_util.dart';
 
 part 'recipe_list_event.dart';
 part 'recipe_list_state.dart';
@@ -14,13 +15,20 @@ const String SERVER_FAILURE_MESSAGE = "Server Failure";
 class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
 
   final GetRecipe getRecipe;
+  final IngredientsList ingredientsList;
 
-  RecipeListBloc({required this.getRecipe}) : super(EmptyRecipeList()) {
+  RecipeListBloc({required this.ingredientsList, required this.getRecipe}) : super(EmptyRecipeList()) {
     on<RecipeListEvent>((event, emit) async {
       if (event is GetRecipeForRecipeList) {
         emit(LoadingRecipeList());
         final failureOrRecipeList = await getRecipe(Params(ingredients: event.ingredients ));
         emit(_eitherFailureOrLoadedState(failureOrRecipeList));
+      }
+      else if (event is AddIngredientsToList) {
+        ingredientsList.addIngredient(event.ingredient);
+      }
+      else if (event is RemoveIngredientsFromList) {
+        ingredientsList.removeIngredient(event.ingredient);
       }
     });
   }

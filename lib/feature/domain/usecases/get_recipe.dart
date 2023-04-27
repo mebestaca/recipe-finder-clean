@@ -8,7 +8,6 @@ import '../entities/recipe.dart';
 
 class GetRecipe extends UseCase<List<Recipe>, Params>{
   RecipeRepository repository;
-
   GetRecipe(this.repository);
 
   @override
@@ -22,10 +21,8 @@ class GetRecipe extends UseCase<List<Recipe>, Params>{
 
 class Params extends Equatable {
   final List<String> ingredients;
-
   const Params({required this.ingredients});
 
   @override
   List<Object?> get props => [ingredients];
-
 }
