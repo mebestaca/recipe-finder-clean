@@ -44,13 +44,13 @@ Future<void> init() async {
   );
 
   // Core
-  sl.registerSingleton(() => IngredientsList());
+  sl.registerLazySingleton(() => IngredientsList());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
-  // External
+  // Externals
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(() => http.Client);
+  sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => InternetConnectionChecker());
 
 }
