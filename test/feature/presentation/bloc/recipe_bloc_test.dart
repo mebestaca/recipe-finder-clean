@@ -25,7 +25,7 @@ void main() {
   });
 
   test("should return Empty as initial state", () {
-    expect(bloc.state, EmptyRecipeList());
+    expect(bloc.state, EmptyRecipeListState());
   });
 
   group("getRecipeList",
@@ -56,8 +56,8 @@ void main() {
             .thenAnswer((_) async => const Right(tRecipeModel)),
         act: (bloc) => bloc.add(GetRecipeForRecipeList(tIngredients)),
         expect: () => [
-          LoadingRecipeList(),
-          const LoadedRecipeList(tRecipeModel)
+          LoadingRecipeListState(),
+          const LoadedRecipeListState(tRecipeModel)
         ]
       );
 
@@ -67,8 +67,8 @@ void main() {
             .thenAnswer((_) async => Left(CacheFailure())),
         act: (bloc) => bloc.add(GetRecipeForRecipeList(tIngredients)),
         expect: () => [
-          LoadingRecipeList(),
-          const ErrorRecipeList(message: CACHE_FAILURE_MESSAGE)
+          LoadingRecipeListState(),
+          const ErrorRecipeListState(message: CACHE_FAILURE_MESSAGE)
         ]
       );
 
@@ -78,8 +78,8 @@ void main() {
             .thenAnswer((_) async => Left(ServerFailure())),
         act: (bloc) => bloc.add(GetRecipeForRecipeList(tIngredients)),
         expect: () => [
-          LoadingRecipeList(),
-          const ErrorRecipeList(message: SERVER_FAILURE_MESSAGE)
+          LoadingRecipeListState(),
+          const ErrorRecipeListState(message: SERVER_FAILURE_MESSAGE)
         ]
       );
 
