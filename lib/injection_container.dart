@@ -17,7 +17,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // Features
   // Bloc
-  sl.registerFactory(() => RecipeListBloc(
+  sl.registerFactory<RecipeListBloc>(() => RecipeListBloc(
       ingredientsList: sl(),
       getRecipe: sl()
   ));
