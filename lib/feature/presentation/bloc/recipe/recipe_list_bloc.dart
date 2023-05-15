@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -17,6 +19,9 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
   final GetRecipe getRecipe;
   final IngredientsList ingredientsList;
 
+  final StreamController<List<String>> _ingredientsListController = StreamController<List<String>>();
+  Stream<List<String>> getIngredientsList() => _ingredientsListController.stream;
+
   RecipeListBloc({required this.ingredientsList, required this.getRecipe}) : super(EmptyRecipeListState()) {
     on<RecipeListEvent>((event, emit) async {
       if (event is GetRecipeForRecipeList) {
@@ -26,9 +31,11 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
       }
       else if (event is AddIngredientsToList) {
         ingredientsList.addIngredient(event.ingredient);
+        _updateIngredientsList();
       }
       else if (event is RemoveIngredientsFromList) {
         ingredientsList.removeIngredient(event.ingredient);
+        _updateIngredientsList();
       }
     });
   }
@@ -51,5 +58,15 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
       default:
         return "Unexpected Failure";
     }
+  }
+
+  void _updateIngredientsList() {
+    _ingredientsListController.sink.add(ingredientsList.getIngredientList());
+  }
+
+  @override
+  Future<void> close() {
+    _ingredientsListController.close();
+    return super.close();
   }
 }
