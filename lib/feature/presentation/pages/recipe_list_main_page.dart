@@ -7,6 +7,7 @@ import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list_loa
 import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list_loading.dart';
 
 import '../../../injection_container.dart';
+import '../widgets/ingredients_list_chips.dart';
 
 class RecipeListMainPage extends StatefulWidget {
   const RecipeListMainPage({Key? key}) : super(key: key);
@@ -19,7 +20,6 @@ class _RecipeListMainPageState extends State<RecipeListMainPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final RecipeListBloc recipeListBloc = sl<RecipeListBloc>();
     return BlocProvider<RecipeListBloc>(
       create: (_) => recipeListBloc,
@@ -29,30 +29,7 @@ class _RecipeListMainPageState extends State<RecipeListMainPage> {
           child: Column(
             children: [
               const RecipeListControl(),
-              StreamBuilder<List<String>>(
-                  stream: recipeListBloc.getIngredientsList(),
-                  builder: (context, ingredientsList) {
-                    if (ingredientsList.hasData) {
-                      final ingredientsData = ingredientsList.data;
-                      if (ingredientsData!.isNotEmpty) {
-                        return Wrap(
-                          children: ingredientsData.map((e) {
-                            return Chip(
-                              label: Text(e),
-                              deleteIcon: const Icon(Icons.close),
-                              onDeleted: () {
-                              },
-                            );
-                          }).toList(),
-                        );
-                      }
-                      return Container();
-                    }
-                    else{
-                      return Container();
-                    }
-                  }
-              ),
+              IngredientsListChip(recipeListBloc: recipeListBloc,),
               BlocBuilder<RecipeListBloc, RecipeListState>(
                   builder: (context, state) {
                     if (state is EmptyRecipeListState) {
