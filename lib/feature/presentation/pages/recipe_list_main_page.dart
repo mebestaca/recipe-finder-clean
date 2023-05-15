@@ -16,20 +16,47 @@ class RecipeListMainPage extends StatefulWidget {
 }
 
 class _RecipeListMainPageState extends State<RecipeListMainPage> {
+
   @override
   Widget build(BuildContext context) {
 
+    final RecipeListBloc recipeListBloc = sl<RecipeListBloc>();
     return BlocProvider<RecipeListBloc>(
-      create: (_) => sl<RecipeListBloc>(),
+      create: (_) => recipeListBloc,
       child: Scaffold(
         appBar: AppBar(),
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const RecipeListControl(),
+              StreamBuilder<List<String>>(
+                  stream: recipeListBloc.getIngredientsList(),
+                  builder: (context, ingredientsList) {
+                    if (ingredientsList.hasData) {
+                      final ingredientsData = ingredientsList.data;
+                      if (ingredientsData!.isNotEmpty) {
+                        return Wrap(
+                          children: ingredientsData.map((e) {
+                            return Chip(
+                              label: Text(e),
+                              deleteIcon: const Icon(Icons.close),
+                              onDeleted: () {
+                              },
+                            );
+                          }).toList(),
+                        );
+                      }
+                      return Container();
+                    }
+                    else{
+                      return Container();
+                    }
+                  }
+              ),
               BlocBuilder<RecipeListBloc, RecipeListState>(
                   builder: (context, state) {
                     if (state is EmptyRecipeListState) {
-                      return const RecipeListControl();
+                      return Container();
                     }
                     else if (state is LoadingRecipeListState) {
                       return const RecipeListLoading();
