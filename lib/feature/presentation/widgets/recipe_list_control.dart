@@ -22,6 +22,9 @@ class _RecipeListControlState extends State<RecipeListControl> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextFormField(
+              onChanged: (val) {
+                ingredientString = val;
+              },
               decoration: inputDecorationStyle.copyWith(
                 labelText: "ingredient"
               ),
@@ -32,8 +35,8 @@ class _RecipeListControlState extends State<RecipeListControl> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(onPressed: () {
-                BlocProvider.of<RecipeListBloc>(context)
-                    .add(AddIngredientsToList(ingredientString));
+                  BlocProvider.of<RecipeListBloc>(context)
+                      .add(AddIngredientsToList(ingredientString));
               },
                 child: const Text("Add"),
               ),
