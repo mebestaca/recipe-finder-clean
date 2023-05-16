@@ -28,7 +28,7 @@ class _RecipeListMainPageState extends State<RecipeListMainPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const RecipeListControl(),
+              RecipeListControl(recipeListBloc: recipeListBloc),
               IngredientsListChip(recipeListBloc: recipeListBloc,),
               BlocBuilder<RecipeListBloc, RecipeListState>(
                   builder: (context, state) {
