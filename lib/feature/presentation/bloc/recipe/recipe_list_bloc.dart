@@ -20,7 +20,8 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
   final IngredientsList ingredientsList;
 
   final StreamController<List<String>> _ingredientsListController = StreamController<List<String>>();
-  Stream<List<String>> getIngredientsList() => _ingredientsListController.stream;
+  Stream<List<String>> getIngredientsListStream() => _ingredientsListController.stream;
+  List<String> getIngredientsList() => ingredientsList.ingredientsList;
 
   RecipeListBloc({required this.ingredientsList, required this.getRecipe}) : super(EmptyRecipeListState()) {
     on<RecipeListEvent>((event, emit) async {
