@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/recipe/recipe_list_bloc.dart';
 
@@ -9,7 +10,7 @@ class IngredientsListChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<String>>(
-        stream: recipeListBloc.getIngredientsList(),
+        stream: recipeListBloc.getIngredientsListStream(),
         builder: (context, ingredientsList) {
           if (ingredientsList.hasData) {
             final ingredientsData = ingredientsList.data;
@@ -20,6 +21,8 @@ class IngredientsListChip extends StatelessWidget {
                     label: Text(e),
                     deleteIcon: const Icon(Icons.close),
                     onDeleted: () {
+                      BlocProvider.of<RecipeListBloc>(context)
+                          .add(RemoveIngredientsFromList(e));
                     },
                   );
                 }).toList(),
