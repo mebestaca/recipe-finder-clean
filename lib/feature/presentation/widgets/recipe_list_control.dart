@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder_clean/core/widgets/input_decoration.dart';
 import 'package:recipe_finder_clean/feature/presentation/bloc/recipe/recipe_list_bloc.dart';
 
 class RecipeListControl extends StatefulWidget {
-  const RecipeListControl({Key? key}) : super(key: key);
+  const RecipeListControl({Key? key, required this.recipeListBloc}) : super(key: key);
+  final RecipeListBloc recipeListBloc;
 
   @override
   State<RecipeListControl> createState() => _RecipeListControlState();
@@ -12,6 +12,7 @@ class RecipeListControl extends StatefulWidget {
 
 class _RecipeListControlState extends State<RecipeListControl> {
 
+  final controller = TextEditingController();
   late String ingredientString;
 
   @override
@@ -22,6 +23,7 @@ class _RecipeListControlState extends State<RecipeListControl> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextFormField(
+              controller: controller,
               onChanged: (val) {
                 ingredientString = val;
               },
@@ -35,8 +37,8 @@ class _RecipeListControlState extends State<RecipeListControl> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(onPressed: () {
-                  BlocProvider.of<RecipeListBloc>(context)
-                      .add(AddIngredientsToList(ingredientString));
+                  widget.recipeListBloc.add(AddIngredientsToList(ingredientString));
+                  controller.clear();
               },
                 child: const Text("Add"),
               ),
@@ -46,7 +48,11 @@ class _RecipeListControlState extends State<RecipeListControl> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: SizedBox(
               width: double.infinity,
-              child: ElevatedButton(onPressed: () {},
+              child: ElevatedButton(onPressed: () {
+                widget.recipeListBloc.add(GetRecipeForRecipeList(
+                    widget.recipeListBloc.getIngredientsList()
+                ));
+              },
                 child: const Text("Search"),
               ),
             ),
