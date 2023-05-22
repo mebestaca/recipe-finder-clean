@@ -9,7 +9,7 @@ class IngredientsList implements IngredientsListProvider{
 
   @override
   void addIngredient(String ingredient) {
-    ingredientsList.add(ingredient);
+    ingredientsList.toSet().add(ingredient);
   }
 
   @override
