@@ -15,17 +15,22 @@ class IngredientsListChip extends StatelessWidget {
           if (ingredientsList.hasData) {
             final ingredientsData = ingredientsList.data;
             if (ingredientsData!.isNotEmpty) {
-              return Wrap(
-                children: ingredientsData.map((e) {
-                  return Chip(
-                    label: Text(e),
-                    deleteIcon: const Icon(Icons.close),
-                    onDeleted: () {
-                      BlocProvider.of<RecipeListBloc>(context)
-                          .add(RemoveIngredientsFromList(e));
-                    },
-                  );
-                }).toList(),
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                child: Wrap(
+                  children: ingredientsData.map((e) {
+                    return Chip(
+                      label: Text(e),
+                      deleteIcon: const Icon(Icons.close),
+                      onDeleted: () {
+                        BlocProvider.of<RecipeListBloc>(context)
+                            .add(RemoveIngredientsFromList(e));
+                      },
+                    );
+                  }).toList(),
+                ),
               );
             }
             return Container();
