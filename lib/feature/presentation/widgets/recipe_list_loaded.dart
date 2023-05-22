@@ -6,20 +6,14 @@ import '../../../injection_container.dart';
 import '../../domain/entities/recipe.dart';
 
 class RecipeListLoaded extends StatelessWidget {
-  const RecipeListLoaded({Key? key}) : super(key: key);
-
+  const RecipeListLoaded({Key? key, required this.recipeList}) : super(key: key);
+  final List<Recipe> recipeList;
 
   @override
   Widget build(BuildContext context) {
-    List<Recipe> recipeList = ModalRoute.of(context)?.settings.arguments as List<Recipe>;
-
     return Scaffold(
       appBar: AppBar(),
-      body: ListView.builder(
-          itemBuilder: (context, index) {
-            return Container();
-          }
-      ),
+      body: const Placeholder(),
     );
   }
 }
