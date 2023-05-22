@@ -19,13 +19,16 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
   final GetRecipe getRecipe;
   final IngredientsList ingredientsList;
 
-  final StreamController<List<String>> _ingredientsListController = StreamController<List<String>>();
+  final StreamController<List<String>> _ingredientsListController = StreamController<List<String>>.broadcast();
   Stream<List<String>> getIngredientsListStream() => _ingredientsListController.stream;
   List<String> getIngredientsList() => ingredientsList.ingredientsList;
 
   RecipeListBloc({required this.ingredientsList, required this.getRecipe}) : super(EmptyRecipeListState()) {
     on<RecipeListEvent>((event, emit) async {
-      if (event is GetRecipeForRecipeList) {
+      if (event is ReturnToMenu) {
+        emit(EmptyRecipeListState());
+      }
+      else if (event is GetRecipeForRecipeList) {
         emit(LoadingRecipeListState());
         final failureOrRecipeList = await getRecipe(Params(ingredients: event.ingredients ));
         emit(_eitherFailureOrLoadedState(failureOrRecipeList));
