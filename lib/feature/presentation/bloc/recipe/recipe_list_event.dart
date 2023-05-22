@@ -13,6 +13,12 @@ class GetRecipeForRecipeList extends RecipeListEvent {
   List<Object?> get props => [ingredients];
 }
 
+class ReturnToMenu extends RecipeListEvent{
+
+  @override
+  List<Object?> get props => [];
+}
+
 class AddIngredientsToList extends RecipeListEvent {
   final String ingredient;
   const AddIngredientsToList(this.ingredient);
