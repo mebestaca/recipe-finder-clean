@@ -18,15 +18,27 @@ class RecipeListMainPage extends StatefulWidget {
 
 class _RecipeListMainPageState extends State<RecipeListMainPage> {
 
+  final RecipeListBloc recipeListBloc = sl<RecipeListBloc>();
+
   @override
   Widget build(BuildContext context) {
-    final RecipeListBloc recipeListBloc = sl<RecipeListBloc>();
+
     return BlocProvider<RecipeListBloc>(
+      lazy: false,
       create: (_) => recipeListBloc,
       child: BlocBuilder<RecipeListBloc, RecipeListState>(
         builder: (context, state) {
           if (state is LoadedRecipeListState) {
-            return RecipeListLoaded(recipeList: state.recipeList);
+            return RecipeListLoaded(
+                recipeList: state.recipeList,
+                recipeListBloc: recipeListBloc,
+            );
+          }
+          else if (state is LoadingRecipeListState) {
+            return const RecipeListLoading();
+          }
+          else if (state is ErrorRecipeListState) {
+            return RecipeListError(message: state.message);
           }
           else {
             return Scaffold(
@@ -35,23 +47,7 @@ class _RecipeListMainPageState extends State<RecipeListMainPage> {
                 child: Column(
                   children: [
                     RecipeListControl(recipeListBloc: recipeListBloc),
-                    IngredientsListChip(recipeListBloc: recipeListBloc,),
-                    BlocBuilder<RecipeListBloc, RecipeListState>(
-                        builder: (context, state) {
-                          if (state is EmptyRecipeListState) {
-                            return Container();
-                          }
-                          else if (state is LoadingRecipeListState) {
-                            return const RecipeListLoading();
-                          }
-                          else if (state is ErrorRecipeListState) {
-                            return RecipeListError(message: state.message);
-                          }
-                          else {
-                            return Container();
-                          }
-                        }
-                    ),
+                    IngredientsListChip(recipeListBloc: recipeListBloc),
                   ],
                 ),
               ),
