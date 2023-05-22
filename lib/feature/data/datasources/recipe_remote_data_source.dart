@@ -23,9 +23,7 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource{
       "number" : "100"
     };
     final uri = Uri.https('api.spoonacular.com', '/recipes/findByIngredients', data);
-    print(uri);
     final response = await client.get(uri, headers: {"Content-Type" : "application/json"});
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       final List dataList = jsonDecode(response.body);
