@@ -20,7 +20,7 @@ void main() {
           unitOfMeasure: "cup",
           imageUrl: "test.url.com"
       ),
-    ]
+    ], id: 1
   );
 
   test('should be a subclass of Recipe entity',
@@ -59,7 +59,7 @@ void main() {
                       unitOfMeasure: "cup",
                       imageUrl: "url 2"
                   ),
-                ]
+                ], id: 1
               );
               final result = tRecipeModel.toJson();
 
