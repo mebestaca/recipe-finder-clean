@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:recipe_finder_clean/core/network/network_info.dart';
 import 'package:recipe_finder_clean/feature/data/datasources/recipe_local_data_source.dart';
@@ -7,7 +8,6 @@ import 'package:recipe_finder_clean/feature/data/repositories/recipe_repository_
 import 'package:recipe_finder_clean/feature/domain/usecases/get_recipe.dart';
 import 'package:recipe_finder_clean/feature/presentation/bloc/recipe/recipe_list_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 import 'feature/domain/repositories/recipe_repository.dart';
 import 'feature/presentation/utils/ingredients_list_util.dart';
