@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder_clean/feature/presentation/bloc/recipe/recipe_list_bloc.dart';
-import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list_control.dart';
-import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list_error.dart';
-import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list_loaded.dart';
-import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list_loading.dart';
+import 'package:recipe_finder_clean/feature/presentation/widgets/controls/recipe_list_control.dart';
+import 'package:recipe_finder_clean/feature/presentation/widgets/states/recipe_list_error.dart';
+import 'package:recipe_finder_clean/feature/presentation/widgets/states/recipe_list_loaded.dart';
 
 import '../../../injection_container.dart';
-import '../widgets/ingredients_list_chips.dart';
+import '../widgets/controls/ingredients_list_chips.dart';
+import '../widgets/states/recipe_list_loading.dart';
 
 class RecipeListMainPage extends StatefulWidget {
   const RecipeListMainPage({Key? key}) : super(key: key);
