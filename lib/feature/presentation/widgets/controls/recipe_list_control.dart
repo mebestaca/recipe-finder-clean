@@ -37,7 +37,7 @@ class _RecipeListControlState extends State<RecipeListControl> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(onPressed: () {
-                  widget.recipeListBloc.add(AddIngredientsToList(ingredientString));
+                  widget.recipeListBloc.add(OnAddIngredientsToList(ingredientString));
                   controller.clear();
               },
                 child: const Text("Add"),
@@ -49,7 +49,7 @@ class _RecipeListControlState extends State<RecipeListControl> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(onPressed: () {
-                widget.recipeListBloc.add(GetRecipeForRecipeList(
+                widget.recipeListBloc.add(OnGetRecipeForRecipeList(
                     widget.recipeListBloc.getIngredientsList()
                 ));
               },
