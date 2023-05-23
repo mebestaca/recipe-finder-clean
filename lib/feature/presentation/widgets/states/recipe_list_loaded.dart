@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder_clean/feature/presentation/bloc/recipe/recipe_list_bloc.dart';
-import '../../domain/entities/recipe.dart';
+import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list/recipe_list_card.dart';
+import '../../../domain/entities/recipe.dart';
 
 class RecipeListLoaded extends StatelessWidget {
   const RecipeListLoaded({Key? key, required this.recipeList, required this.recipeListBloc}) : super(key: key);
@@ -11,20 +12,18 @@ class RecipeListLoaded extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text("Recipes"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             recipeListBloc.add(ReturnToMenu());
           },
         ),
-
       ),
       body: ListView.builder(
           itemCount: recipeList.length,
           itemBuilder: (context, index) {
-              return Card(
-                child: Text(recipeList[index].title),
-              );
+            return RecipeListCard(recipe: recipeList[index],);
           }
       ),
     );
