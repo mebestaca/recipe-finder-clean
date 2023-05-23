@@ -4,33 +4,42 @@ abstract class RecipeListEvent extends Equatable {
   const RecipeListEvent();
 }
 
-class GetRecipeForRecipeList extends RecipeListEvent {
+class OnGetRecipeForRecipeList extends RecipeListEvent {
   final List<String> ingredients;
 
-  const GetRecipeForRecipeList(this.ingredients);
+  const OnGetRecipeForRecipeList(this.ingredients);
 
   @override
   List<Object?> get props => [ingredients];
 }
 
-class ReturnToMenu extends RecipeListEvent{
+class OnReturnToMenu extends RecipeListEvent{
 
   @override
   List<Object?> get props => [];
 }
 
-class AddIngredientsToList extends RecipeListEvent {
+class OnAddIngredientsToList extends RecipeListEvent {
   final String ingredient;
-  const AddIngredientsToList(this.ingredient);
+  const OnAddIngredientsToList(this.ingredient);
 
   @override
   List<Object?> get props => [ingredient];
 }
 
-class RemoveIngredientsFromList extends RecipeListEvent {
+class OnRemoveIngredientsFromList extends RecipeListEvent {
   final String ingredient;
-  const RemoveIngredientsFromList(this.ingredient);
+  const OnRemoveIngredientsFromList(this.ingredient);
 
   @override
   List<Object?> get props => [ingredient];
+}
+
+class OnTapRecipe extends RecipeListEvent {
+
+  final Recipe recipe;
+  const OnTapRecipe(this.recipe);
+
+  @override
+  List<Object?> get props => [];
 }
