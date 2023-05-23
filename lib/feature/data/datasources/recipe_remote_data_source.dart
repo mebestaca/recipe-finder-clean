@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:recipe_finder_clean/core/error/exception.dart';
 
 import '../../../keys/keys.dart';
 import '../models/recipe_model.dart';
-import 'package:http/http.dart' as http;
 
 abstract class RecipeRemoteDataSource{
   Future<List<RecipeModel>> getRecipe(List<String> ingredients);
