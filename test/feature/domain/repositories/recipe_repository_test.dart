@@ -16,7 +16,8 @@ void main() {
   final List<String> tIngredients = ["salt", "pepper"];
   const Recipe tRecipe = Recipe(
       title: "test",
-      imageUrl: "test url"
+      imageUrl: "test url",
+      id: 1
   );
 
   mockRecipeRepository = MockRecipeRepository();
