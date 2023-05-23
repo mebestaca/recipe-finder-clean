@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../bloc/recipe/recipe_list_bloc.dart';
+import '../../bloc/recipe/recipe_list_bloc.dart';
 
 class IngredientsListChip extends StatelessWidget {
   const IngredientsListChip({Key? key, required this.recipeListBloc}) : super(key: key);
