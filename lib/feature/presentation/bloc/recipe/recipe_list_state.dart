@@ -15,7 +15,7 @@ class LoadingRecipeListState extends RecipeListState {
 }
 
 class LoadedRecipeListState extends RecipeListState {
-  final List<Recipe> recipeList;
+  final List<RecipeModel> recipeList;
   const LoadedRecipeListState(this.recipeList);
 
   @override
@@ -31,7 +31,7 @@ class ErrorRecipeListState extends RecipeListState {
 }
 
 class RecipeViewState extends RecipeListState {
-  final Recipe recipe;
+  final RecipeModel recipe;
   const RecipeViewState(this.recipe);
 
   @override
