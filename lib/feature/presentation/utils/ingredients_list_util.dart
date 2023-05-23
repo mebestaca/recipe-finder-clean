@@ -5,11 +5,11 @@ abstract class IngredientsListProvider{
 }
 
 class IngredientsList implements IngredientsListProvider{
-  List<String> ingredientsList = [];
+  Set<String> ingredientsList = {};
 
   @override
   void addIngredient(String ingredient) {
-    ingredientsList.toSet().add(ingredient);
+    ingredientsList.add(ingredient);
   }
 
   @override
@@ -19,6 +19,6 @@ class IngredientsList implements IngredientsListProvider{
 
   @override
   List<String> getIngredientList() {
-    return ingredientsList;
+    return ingredientsList.toList();
   }
 }
