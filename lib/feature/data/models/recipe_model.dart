@@ -10,6 +10,7 @@ class RecipeModel extends Recipe{
     required super.title,
     required super.imageUrl,
     required this.ingredients,
+    required super.id,
   });
 
   factory RecipeModel.fromJson(Map<String, dynamic> json) {
@@ -19,6 +20,7 @@ class RecipeModel extends Recipe{
         ingredients: List<IngredientsModel>.from(
             json["missedIngredients"].map((x) => IngredientsModel.fromJson(x))
         ),
+        id: json["id"],
     );
   }
 
