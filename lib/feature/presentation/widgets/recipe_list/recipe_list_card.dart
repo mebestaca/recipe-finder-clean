@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/recipe.dart';
+import '../../../data/models/recipe_model.dart';
 import '../../bloc/recipe/recipe_list_bloc.dart';
 
 class RecipeListCard extends StatelessWidget {
   const RecipeListCard({Key? key, required this.recipe, required this.recipeListBloc}) : super(key: key);
-  final Recipe recipe;
+  final RecipeModel recipe;
   final RecipeListBloc recipeListBloc;
 
   @override
