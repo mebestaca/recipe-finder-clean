@@ -42,7 +42,7 @@ void main() {
 
     test("should perform a GET request on a URL with with a list being the endpoint and with application/json header", () {
       setUpMockClientSuccess200();
-      final uri = Uri.http('api.spoonacular.com', '/recipes/findByIngredients', data);
+      final uri = Uri.https('api.spoonacular.com', '/recipes/findByIngredients', data);
       dataSource.getRecipe(ingredients);
 
       verify(mockClient.get(uri, headers: {"Content-Type" : "application/json"}));
@@ -55,7 +55,8 @@ void main() {
             name: "salt",
             amount: 1.0,
             unitOfMeasure: "cup",
-            imageUrl: "test.url.com")])];
+            imageUrl: "test.url.com")],
+            id: 1)];
 
     test("should return a list of recipe model when the response code is 200 (success)", () async {
       setUpMockClientSuccess200();
