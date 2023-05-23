@@ -45,7 +45,7 @@ void main() {
         build: () => bloc,
         setUp: () => when(mockGetRecipe(any))
             .thenAnswer((_) async => const Right(tRecipeModel)),
-        act: (bloc) => bloc.add(GetRecipeForRecipeList(tIngredients)),
+        act: (bloc) => bloc.add(OnGetRecipeForRecipeList(tIngredients)),
         verify: (_) async {
           verify(mockGetRecipe(Params(ingredients:  tIngredients)));
         }
@@ -55,7 +55,7 @@ void main() {
         build: () => bloc,
         setUp: () => when(mockGetRecipe(any))
             .thenAnswer((_) async => const Right(tRecipeModel)),
-        act: (bloc) => bloc.add(GetRecipeForRecipeList(tIngredients)),
+        act: (bloc) => bloc.add(OnGetRecipeForRecipeList(tIngredients)),
         expect: () => [
           LoadingRecipeListState(),
           const LoadedRecipeListState(tRecipeModel)
@@ -66,7 +66,7 @@ void main() {
         build: () => bloc,
         setUp: () => when(mockGetRecipe(any))
             .thenAnswer((_) async => Left(CacheFailure())),
-        act: (bloc) => bloc.add(GetRecipeForRecipeList(tIngredients)),
+        act: (bloc) => bloc.add(OnGetRecipeForRecipeList(tIngredients)),
         expect: () => [
           LoadingRecipeListState(),
           const ErrorRecipeListState(message: CACHE_FAILURE_MESSAGE)
@@ -77,7 +77,7 @@ void main() {
         build: () => bloc,
         setUp: () => when(mockGetRecipe(any))
             .thenAnswer((_) async => Left(ServerFailure())),
-        act: (bloc) => bloc.add(GetRecipeForRecipeList(tIngredients)),
+        act: (bloc) => bloc.add(OnGetRecipeForRecipeList(tIngredients)),
         expect: () => [
           LoadingRecipeListState(),
           const ErrorRecipeListState(message: SERVER_FAILURE_MESSAGE)
@@ -89,7 +89,7 @@ void main() {
           build: () => bloc,
           setUp: () => when(mockIngredientsList.addIngredient(any))
               .thenReturn(null),
-          act: (bloc) => bloc.add(AddIngredientsToList(ingredient)),
+          act: (bloc) => bloc.add(OnAddIngredientsToList(ingredient)),
           verify: (_) => {
             verify(mockIngredientsList.addIngredient(ingredient))
           }
@@ -99,7 +99,7 @@ void main() {
           build: () => bloc,
           setUp: () => when(mockIngredientsList.removeIngredient(any))
               .thenReturn(null),
-          act: (bloc) => bloc.add(RemoveIngredientsFromList(ingredient)),
+          act: (bloc) => bloc.add(OnRemoveIngredientsFromList(ingredient)),
           verify: (_) => {
             verify(mockIngredientsList.removeIngredient(ingredient))
           }
