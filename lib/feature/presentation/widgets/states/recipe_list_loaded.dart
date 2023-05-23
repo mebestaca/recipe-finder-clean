@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder_clean/feature/presentation/bloc/recipe/recipe_list_bloc.dart';
 import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list/recipe_list_card.dart';
-import '../../../domain/entities/recipe.dart';
+
+import '../../../data/models/recipe_model.dart';
 
 class RecipeListLoaded extends StatelessWidget {
   const RecipeListLoaded({Key? key, required this.recipeList, required this.recipeListBloc}) : super(key: key);
   final RecipeListBloc recipeListBloc;
-  final List<Recipe> recipeList;
+  final List<RecipeModel> recipeList;
 
   @override
   Widget build(BuildContext context) {
