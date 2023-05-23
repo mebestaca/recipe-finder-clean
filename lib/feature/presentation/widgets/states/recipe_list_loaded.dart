@@ -16,14 +16,17 @@ class RecipeListLoaded extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            recipeListBloc.add(ReturnToMenu());
+            recipeListBloc.add(OnReturnToMenu());
           },
         ),
       ),
       body: ListView.builder(
           itemCount: recipeList.length,
           itemBuilder: (context, index) {
-            return RecipeListCard(recipe: recipeList[index],);
+            return RecipeListCard(
+              recipe: recipeList[index],
+              recipeListBloc: recipeListBloc,
+            );
           }
       ),
     );
