@@ -8,7 +8,7 @@ class IngredientsListChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<String>>(
-        initialData: recipeListBloc.ingredientsList.ingredientsList,
+        initialData: recipeListBloc.ingredientsList.ingredientsList.toList(),
         stream: recipeListBloc.getIngredientsListStream(),
         builder: (context, ingredientsList) {
           if (ingredientsList.hasData) {
@@ -24,7 +24,7 @@ class IngredientsListChip extends StatelessWidget {
                       label: Text(e),
                       deleteIcon: const Icon(Icons.close),
                       onDeleted: () {
-                        recipeListBloc.add(RemoveIngredientsFromList(e));
+                        recipeListBloc.add(OnRemoveIngredientsFromList(e));
                       },
                     );
                   }).toList(),
