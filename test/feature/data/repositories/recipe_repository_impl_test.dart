@@ -72,7 +72,7 @@ void main() {
               name: "test name",
               amount: 1,
               unitOfMeasure: "cup",
-              imageUrl: "image url")])];
+              imageUrl: "image url")], id: 1)];
 
       List<Recipe> tRecipe = tRecipeModel;
 
