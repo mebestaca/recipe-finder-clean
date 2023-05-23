@@ -6,7 +6,7 @@ import 'package:recipe_finder_clean/feature/data/datasources/recipe_remote_data_
 import 'package:recipe_finder_clean/feature/domain/repositories/recipe_repository.dart';
 
 import '../../../core/network/network_info.dart';
-import '../../domain/entities/recipe.dart';
+import '../models/recipe_model.dart';
 
 class RecipeRepositoryImpl extends RecipeRepository{
 
@@ -21,7 +21,7 @@ class RecipeRepositoryImpl extends RecipeRepository{
   });
 
   @override
-  Future<Either<Failure, List<Recipe>>> getRecipe(List<String> ingredients) async {
+  Future<Either<Failure, List<RecipeModel>>> getRecipe(List<String> ingredients) async {
     if (await networkInfo.isConnected) {
       try{
         final recipeList = await remoteDataSource.getRecipe(ingredients);
