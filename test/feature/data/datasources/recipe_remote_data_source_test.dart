@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:recipe_finder_clean/core/error/exception.dart';
@@ -6,7 +7,6 @@ import 'package:recipe_finder_clean/feature/data/datasources/recipe_remote_data_
 import 'package:recipe_finder_clean/feature/data/models/ingredients_model.dart';
 import 'package:recipe_finder_clean/feature/data/models/recipe_model.dart';
 import 'package:recipe_finder_clean/keys/keys.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../fixtures/fixture_reader.dart';
 import 'recipe_remote_data_source_test.mocks.dart';
