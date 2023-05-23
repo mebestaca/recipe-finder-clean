@@ -37,9 +37,9 @@ class OnRemoveIngredientsFromList extends RecipeListEvent {
 
 class OnTapRecipe extends RecipeListEvent {
 
-  final Recipe recipe;
+  final RecipeModel recipe;
   const OnTapRecipe(this.recipe);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [recipe];
 }
