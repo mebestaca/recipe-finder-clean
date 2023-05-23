@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/error/failure.dart';
-import '../../../domain/entities/recipe.dart';
+import '../../../data/models/recipe_model.dart';
 import '../../../domain/usecases/get_recipe.dart';
 import '../../utils/ingredients_list_util.dart';
 
@@ -48,7 +48,7 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
   }
 
   RecipeListState _eitherFailureOrLoadedState(
-    Either<Failure, List<Recipe>> failureOrRecipeList
+    Either<Failure, List<RecipeModel>> failureOrRecipeList
   ) {
     return failureOrRecipeList.fold(
       (failure) => ErrorRecipeListState(message: _mapFailureMessage(failure)),
