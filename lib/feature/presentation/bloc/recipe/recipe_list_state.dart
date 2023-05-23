@@ -30,3 +30,11 @@ class ErrorRecipeListState extends RecipeListState {
   List<Object?> get props => [message];
 }
 
+class RecipeViewState extends RecipeListState {
+  final Recipe recipe;
+  const RecipeViewState(this.recipe);
+
+  @override
+  List<Object?> get props => [recipe];
+}
+
