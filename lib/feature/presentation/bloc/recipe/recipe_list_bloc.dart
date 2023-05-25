@@ -41,9 +41,6 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
         ingredientsList.removeIngredient(event.ingredient);
         _updateIngredientsList();
       }
-      else if (event is OnTapRecipe) {
-        emit(RecipeViewState(event.recipe));
-      }
     });
   }
 
@@ -52,7 +49,7 @@ class RecipeListBloc extends Bloc<RecipeListEvent, RecipeListState> {
   ) {
     return failureOrRecipeList.fold(
       (failure) => ErrorRecipeListState(message: _mapFailureMessage(failure)),
-      (recipeList) => LoadedRecipeListState(recipeList),
+      (recipeList) => LoadedRecipeListState(recipeList)
     );
   }
 
