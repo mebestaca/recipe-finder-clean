@@ -38,7 +38,8 @@ void main() {
               name: "test name",
               amount: 1,
               unitOfMeasure: "cup",
-              imageUrl: "image url")],
+              imageUrl: "image url",
+              original: "cup")],
               id: 1)];
 
       blocTest("should get data from the getRecipeList usecase",
