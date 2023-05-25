@@ -18,7 +18,8 @@ void main() {
           name: "salt",
           amount: 1.0,
           unitOfMeasure: "cup",
-          imageUrl: "test.url.com"
+          imageUrl: "test.url.com",
+          original: "cup"
       ),
     ], id: 1
   );
@@ -51,13 +52,15 @@ void main() {
                       name: "ingredient1",
                       amount: 1,
                       unitOfMeasure: "cup",
-                      imageUrl: "url 1"
+                      imageUrl: "url 1",
+                      original: "cup"
                   ),
                   IngredientsModel(
                       name: "ingredient2",
                       amount: 2,
                       unitOfMeasure: "cup",
-                      imageUrl: "url 2"
+                      imageUrl: "url 2",
+                      original: "cup"
                   ),
                 ], id: 1
               );
