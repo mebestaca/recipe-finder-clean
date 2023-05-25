@@ -9,6 +9,7 @@ import '../../../injection_container.dart';
 import '../widgets/controls/ingredients_list_chips.dart';
 import '../widgets/states/recipe_list_loading.dart';
 import '../widgets/states/recipe_list_view.dart';
+import '../widgets/theme/background.dart';
 
 class RecipeListMainPage extends StatefulWidget {
   const RecipeListMainPage({Key? key}) : super(key: key);
@@ -42,18 +43,22 @@ class _RecipeListMainPageState extends State<RecipeListMainPage> {
             return RecipeListError(message: state.message);
           }
           else if (state is RecipeViewState) {
-            return RecipeView(
-              recipe: state.recipe,
-              recipeListBloc: recipeListBloc,);
+            return RecipeView(recipe: state.recipe,);
           }
           else {
-            return Scaffold(
-              appBar: AppBar(),
-              body: SingleChildScrollView(
-                child: Column(
+            return SafeArea(
+              child: Scaffold(
+                body: Stack(
                   children: [
-                    RecipeListControl(recipeListBloc: recipeListBloc),
-                    IngredientsListChip(recipeListBloc: recipeListBloc),
+                    const Background(),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          RecipeListControl(recipeListBloc: recipeListBloc),
+                          IngredientsListChip(recipeListBloc: recipeListBloc),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
