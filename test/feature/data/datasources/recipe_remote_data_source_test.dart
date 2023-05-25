@@ -55,7 +55,8 @@ void main() {
             name: "salt",
             amount: 1.0,
             unitOfMeasure: "cup",
-            imageUrl: "test.url.com")],
+            imageUrl: "test.url.com",
+            original: 'cup')],
             id: 1)];
 
     test("should return a list of recipe model when the response code is 200 (success)", () async {
