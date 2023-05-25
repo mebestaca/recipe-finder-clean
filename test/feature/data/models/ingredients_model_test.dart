@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:recipe_finder_clean/feature/data/models/ingredients_model.dart';
 import 'package:recipe_finder_clean/feature/domain/entities/ingredients.dart';
@@ -11,7 +12,8 @@ void main(){
       name: "salt",
       amount: 1.0,
       unitOfMeasure: "cup",
-      imageUrl: "test.url.com"
+      imageUrl: "test.url.com",
+      original: "cup"
   );
 
   test(
@@ -38,7 +40,8 @@ void main(){
           name: "test",
           amount: 1.0,
           unitOfMeasure: "cup",
-          imageUrl: "testUrl"
+          imageUrl: "testUrl",
+          original: "cup"
         );
 
         final result = tIngredientsModel.toJson();
