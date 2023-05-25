@@ -3,6 +3,7 @@ import 'package:recipe_finder_clean/feature/presentation/bloc/recipe/recipe_list
 import 'package:recipe_finder_clean/feature/presentation/widgets/recipe_list/recipe_list_card.dart';
 
 import '../../../data/models/recipe_model.dart';
+import '../theme/background.dart';
 
 class RecipeListLoaded extends StatelessWidget {
   const RecipeListLoaded({Key? key, required this.recipeList, required this.recipeListBloc}) : super(key: key);
@@ -21,14 +22,19 @@ class RecipeListLoaded extends StatelessWidget {
           },
         ),
       ),
-      body: ListView.builder(
-          itemCount: recipeList.length,
-          itemBuilder: (context, index) {
-            return RecipeListCard(
-              recipe: recipeList[index],
-              recipeListBloc: recipeListBloc,
-            );
-          }
+      body: Stack(
+        children: [
+          const Background(),
+          ListView.builder(
+              itemCount: recipeList.length,
+              itemBuilder: (context, index) {
+                return RecipeListCard(
+                  recipe: recipeList[index],
+                  recipeListBloc: recipeListBloc,
+                );
+              }
+          ),
+        ],
       ),
     );
   }
