@@ -5,7 +5,8 @@ class IngredientsModel extends Ingredients{
     required super.name,
     required super.amount,
     required super.unitOfMeasure,
-    required super.imageUrl
+    required super.imageUrl,
+    required super.original
   });
 
   factory IngredientsModel.fromJson(Map<String, dynamic> json) {
@@ -14,6 +15,7 @@ class IngredientsModel extends Ingredients{
       amount: json["amount"]?.toDouble() ?? 0,
       unitOfMeasure: json["originalName"] ?? "",
       imageUrl: json["image"] ?? "",
+      original: json["original"] ?? ""
     );
   }
 
