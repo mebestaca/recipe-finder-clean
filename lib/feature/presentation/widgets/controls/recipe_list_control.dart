@@ -17,47 +17,50 @@ class _RecipeListControlState extends State<RecipeListControl> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              controller: controller,
-              onChanged: (val) {
-                ingredientString = val;
-              },
-              decoration: inputDecorationStyle.copyWith(
-                labelText: "ingredient"
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Card(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                controller: controller,
+                onChanged: (val) {
+                  ingredientString = val;
+                },
+                decoration: inputDecorationStyle.copyWith(
+                  labelText: "ingredient"
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(onPressed: () {
-                  widget.recipeListBloc.add(OnAddIngredientsToList(ingredientString));
-                  controller.clear();
-              },
-                child: const Text("Add"),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(onPressed: () {
+                    widget.recipeListBloc.add(OnAddIngredientsToList(ingredientString));
+                    controller.clear();
+                },
+                  child: const Text("Add"),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(onPressed: () {
-                widget.recipeListBloc.add(OnGetRecipeForRecipeList(
-                    widget.recipeListBloc.getIngredientsList()
-                ));
-              },
-                child: const Text("Search"),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(onPressed: () {
+                  widget.recipeListBloc.add(OnGetRecipeForRecipeList(
+                      widget.recipeListBloc.getIngredientsList()
+                  ));
+                },
+                  child: const Text("Search"),
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
