@@ -29,36 +29,43 @@ class RecipeView extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: double.infinity,
-                    child: Card(
-                        child: Center(
-                            child: Text(
-                                recipe.title,
-                                textScaleFactor: 2.5,
-                            )
-                        )
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Card(
+                          child: Center(
+                              child: Text(
+                                  recipe.title,
+                                  textScaleFactor: 2.5,
+                                  textAlign: TextAlign.center,
+                              )
+                          )
+                      ),
                     )
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Hero(
-                          tag: recipe.id,
-                          child: Image.network(
-                            recipe.imageUrl,
-                            fit: BoxFit.fill,
-                            loadingBuilder: (_, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            }
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Hero(
+                            tag: recipe.id,
+                            child: Image.network(
+                              recipe.imageUrl,
+                              fit: BoxFit.fill,
+                              loadingBuilder: (_, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              }
+                            ),
                           ),
                         ),
                       ),
@@ -67,7 +74,7 @@ class RecipeView extends StatelessWidget {
                   Visibility(
                     visible: recipe.ingredients.isNotEmpty,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Card(
                         child: ExpansionTile(
                           title: const Text("Used Ingredients"),
