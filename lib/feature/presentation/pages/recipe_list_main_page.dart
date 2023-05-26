@@ -46,17 +46,19 @@ class _RecipeListMainPageState extends State<RecipeListMainPage> {
             return RecipeView(recipe: state.recipe,);
           }
           else {
-            return SafeArea(
-              child: Scaffold(
-                body: Stack(
+            return Scaffold(
+              body: SafeArea(
+                child: Stack(
                   children: [
                     const Background(),
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          RecipeListControl(recipeListBloc: recipeListBloc),
-                          IngredientsListChip(recipeListBloc: recipeListBloc),
-                        ],
+                    Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            RecipeListControl(recipeListBloc: recipeListBloc),
+                            IngredientsListChip(recipeListBloc: recipeListBloc),
+                          ],
+                        ),
                       ),
                     ),
                   ],
