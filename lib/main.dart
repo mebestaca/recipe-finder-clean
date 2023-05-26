@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Recipe Finder",
-      theme: ThemeData.light(),
+      theme: ThemeData(
+        primarySwatch: Colors.green
+      ),
       home: const RecipeListMainPage(),
     );
   }
