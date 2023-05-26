@@ -8,36 +8,46 @@ class IngredientsListChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<String>>(
-        initialData: recipeListBloc.ingredientsList.ingredientsList.toList(),
-        stream: recipeListBloc.getIngredientsListStream(),
-        builder: (context, ingredientsList) {
-          if (ingredientsList.hasData) {
-            final ingredientsData = ingredientsList.data;
-            if (ingredientsData!.isNotEmpty) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                ),
-                child: Wrap(
-                  children: ingredientsData.map((e) {
-                    return Chip(
-                      label: Text(e),
-                      deleteIcon: const Icon(Icons.close),
-                      onDeleted: () {
-                        recipeListBloc.add(OnRemoveIngredientsFromList(e));
-                      },
+    return SizedBox(
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Card(
+          child: StreamBuilder<List<String>>(
+              initialData: recipeListBloc.ingredientsList.ingredientsList.toList(),
+              stream: recipeListBloc.getIngredientsListStream(),
+              builder: (context, ingredientsList) {
+                if (ingredientsList.hasData) {
+                  final ingredientsData = ingredientsList.data;
+                  if (ingredientsData!.isNotEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      child: Center(
+                        child: Wrap(
+                          children: ingredientsData.map((e) {
+                            return Chip(
+                              label: Text(e),
+                              deleteIcon: const Icon(Icons.close),
+                              onDeleted: () {
+                                recipeListBloc.add(OnRemoveIngredientsFromList(e));
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
                     );
-                  }).toList(),
-                ),
-              );
-            }
-            return Container();
-          }
-          else{
-            return Container();
-          }
-        }
+                  }
+                  return Container();
+                }
+                else{
+                  return Container();
+                }
+              }
+          ),
+        ),
+      ),
     );
   }
 }
