@@ -22,6 +22,14 @@ class _RecipeListControlState extends State<RecipeListControl> {
       child: Card(
         child: Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Image(
+                image: AssetImage(
+                    "assets/recipe_alchemy_mini.png"
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
