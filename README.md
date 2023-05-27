@@ -1,16 +1,16 @@
-# recipe_finder_clean
+# Recipe Alchemy (recipe-finder-clean)
 
-A new Flutter project.
+## Description
+A flutter project designed to suggest recipes based on the given ingredients that users will define.
 
-## Getting Started
+## Features
+[Ingredients List] - user can add multiple ingredients.
+[Recipe List] - when the user taps search, the app will then display an array of Recipe with image and name.
+[Recipe Details] - when the user taps on the image of the Recipe the app will display the details of the recipe with a list of ingredients that the user did not include on the Ingredients List.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technology Used
+- Flutter
+- Clean Architecture
+- Restful Api
+- Bloc
+- Mockito
