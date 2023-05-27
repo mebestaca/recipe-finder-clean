@@ -14,3 +14,6 @@ A flutter project designed to suggest recipes based on the given ingredients tha
 - Restful Api </br>
 - Bloc </br>
 - Mockito </br>
+
+## Screenshots
+![alt text](https://github.com/mebestaca/recipe-finder-clean/blob/master/screenshots/recipe-alchemy.png?raw=true)
