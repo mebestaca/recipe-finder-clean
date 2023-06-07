@@ -17,7 +17,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Recipe Finder",
       theme: ThemeData(
-        primarySwatch: Colors.green
+        primarySwatch: Colors.green,
+        cardTheme: CardTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: Colors.white.withOpacity(.9)
+        )
       ),
       home: const RecipeListMainPage(),
     );
