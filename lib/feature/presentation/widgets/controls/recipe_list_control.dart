@@ -17,59 +17,62 @@ class _RecipeListControlState extends State<RecipeListControl> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Card(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Image(
-                image: AssetImage(
-                    "assets/recipe_alchemy_mini.png"
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextFormField(
-                controller: controller,
-                onChanged: (val) {
-                  ingredientString = val;
-                },
-                decoration: inputDecorationStyle.copyWith(
-                  labelText: "ingredient"
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(onPressed: () {
-                    widget.recipeListBloc.add(OnAddIngredientsToList(ingredientString));
-                    controller.clear();
-                },
-                  child: const Text("Add"),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(onPressed: () {
-                  widget.recipeListBloc.add(OnGetRecipeForRecipeList(
-                      widget.recipeListBloc.getIngredientsList()
-                  ));
-                },
-                  child: const Text("Search"),
-                ),
-              ),
-            )
-          ],
+    return Column(
+      children: [
+        const CircleAvatar(
+          radius: 100,
+          backgroundImage: AssetImage(
+              "assets/recipe_alchemy_logo.png"
+          ),
+          backgroundColor: Colors.transparent,
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Card(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    controller: controller,
+                    onChanged: (val) {
+                      ingredientString = val;
+                    },
+                    decoration: inputDecorationStyle.copyWith(
+                      labelText: "ingredient"
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(onPressed: () {
+                        widget.recipeListBloc.add(OnAddIngredientsToList(ingredientString));
+                        controller.clear();
+                    },
+                      child: const Text("Add"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(onPressed: () {
+                      widget.recipeListBloc.add(OnGetRecipeForRecipeList(
+                          widget.recipeListBloc.getIngredientsList()
+                      ));
+                    },
+                      child: const Text("Search"),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
