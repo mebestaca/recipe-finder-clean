@@ -33,7 +33,7 @@ dev_dependencies:
 
 flutter_native_splash:
   background_image: assets/food_background.jpg
-  image: assets/recipe_alchemy_logo.png
+  image: assets/recipe_alchemy_splash.png
 
 flutter_icons:
   android: true
@@ -45,6 +45,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/recipe_alchemy_main.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
