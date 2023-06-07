@@ -9,7 +9,6 @@ class IngredientsListChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Card(
