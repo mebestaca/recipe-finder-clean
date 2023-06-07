@@ -6,6 +6,7 @@ import 'injection_container.dart' as di;
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
+  await Future.delayed(const Duration(seconds: 3));
   runApp(const MyApp());
 }
 
