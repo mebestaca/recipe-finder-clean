@@ -1,7 +1,7 @@
 # Recipe Alchemy (recipe-finder-clean)
 
 ## Description
-A flutter project designed to suggest recipes based on the given ingredients that users will define.
+A flutter project that will suggest possible recipes based on the ingredients provided by the user.
 
 ## Features
 [Ingredients List] - user can add multiple ingredients. </br>
